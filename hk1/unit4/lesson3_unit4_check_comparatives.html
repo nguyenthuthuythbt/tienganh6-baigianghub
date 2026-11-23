@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Unit 4 · Lesson 3 · Check-up</title><style>
+:root{--b:#0f1d4a;--c:#fff3d6;--k:#e8892b;--t:#3a2230}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,Arial,sans-serif;background:var(--c);color:var(--t);font-size:22px}
+header{background:var(--b);color:#fff;padding:16px 20px;text-align:center}header h1{margin:0;font-size:30px}header p{margin:6px 0 0;font-size:20px}
+main{max-width:860px;margin:0 auto;padding:18px}
+.card{background:#fff;border:3px solid var(--k);border-radius:18px;padding:18px;margin:16px 0}
+label{display:block;font-weight:700;margin:10px 0 4px}
+input[type=text]{width:100%;font-size:22px;padding:10px;border:2px solid var(--k);border-radius:10px}
+button{font-size:22px;font-weight:700;padding:12px 22px;border:0;border-radius:12px;background:var(--b);color:#fff;cursor:pointer}
+button.alt{background:var(--k)}button:disabled{opacity:.5}
+.q{font-size:26px;font-weight:700}.opt{display:block;margin:8px 0;padding:12px;border:2px solid #e3c9b8;border-radius:12px;cursor:pointer}
+.opt input{margin-right:10px;transform:scale(1.4)}.opt.sel{background:#fbe3ec;border-color:var(--b)}
+.hint{margin-top:8px;font-size:19px;color:#7a4a5e}.ok{color:#1b7f5b;font-weight:700}.no{color:#c62828;font-weight:700}
+#bar{height:14px;background:#ead7c8;border-radius:8px;overflow:hidden}#bar i{display:block;height:100%;background:var(--b);width:0}
+.credit{text-align:center;font-weight:800;font-size:22px;color:#39ff14;background:#2a1220;padding:12px;border-radius:12px;margin:26px 0 10px}
+.small{font-size:16px;color:#7a4a5e}.hide{display:none}
+h2{margin:26px 0 0;color:var(--b);font-size:26px}</style></head><body>
+<header><button id="mute" type="button" style="float:right;font-size:22px;padding:6px 12px;background:#fff;color:#0f1d4a">🔊</button><h1>Unit 4 · Lesson 3 · Check-up</h1><p>Comparative adjectives</p></header>
+<main>
+<div id="start" class="card">
+ <label for="nm">Your name</label><input id="nm" type="text" value="Bui Minh Khang">
+ <label for="cl">Your class</label><input id="cl" type="text" value="6A3">
+ <p>20 questions in 2 parts · about 15 minutes · you see the answers at the end.</p>
+ <button id="go">Start ▶</button>
+</div>
+<div id="quiz" class="hide"><div id="bar"><i></i></div><div id="qs"></div><button id="submit" class="alt">Submit ✔</button></div>
+<div id="result" class="card hide"></div>
+<div class="credit">Created by Nguyen Thi Thu Thuy</div>
+<p id="warn" class="small"></p>
+</main><script>
+var SCRIPT_URL="https://script.google.com/macros/s/AKfycbyMKQr7sLorZwWgsIkPjJmDjtzh3rmju9w5tR-wQM5OpObpdwkSIYgcFWM0lsIxpTcM/exec";  /* paste the Apps Script web app URL here */
+var LESSON="Unit4-L3-Check";
+var Q=[{"t": "mc", "q": "tall → ?", "o": ["taller", "tallor", "more tall"], "a": 0, "h": "Short adjective: just add -er.", "p": "A"}, {"t": "mc", "q": "large → ?", "o": ["largeer", "larger", "more large"], "a": 1, "h": "The adjective already ends in -e.", "p": "A"}, {"t": "mc", "q": "big → ?", "o": ["biger", "more big", "bigger"], "a": 2, "h": "One vowel + one consonant at the end: what happens to the last letter?", "p": "A"}, {"t": "mc", "q": "hot → ?", "o": ["hoter", "hotter", "more hot"], "a": 1, "h": "Same spelling rule as big.", "p": "A"}, {"t": "mc", "q": "noisy → ?", "o": ["noisyer", "more noisy", "noisier"], "a": 2, "h": "Two syllables ending in -y: think about the y.", "p": "A"}, {"t": "mc", "q": "happy → ?", "o": ["happier", "happyer", "more happy"], "a": 0, "h": "Same rule as noisy.", "p": "A"}, {"t": "mc", "q": "expensive → ?", "o": ["expensiver", "more expensive", "more expensiver"], "a": 1, "h": "This is a long adjective. Do you add -er to it?", "p": "A"}, {"t": "mc", "q": "beautiful → ?", "o": ["beautifuller", "more beautifuler", "more beautiful"], "a": 2, "h": "Long adjective (3 or more syllables).", "p": "A"}, {"t": "mc", "q": "modern → ?", "o": ["moderner", "more modern", "more moderner"], "a": 1, "h": "Count the syllables, then choose.", "p": "A"}, {"t": "mc", "q": "good → ?", "o": ["gooder", "more good", "better"], "a": 2, "h": "This adjective is irregular.", "p": "A"}, {"t": "mc", "q": "My house is ___ than your house.", "o": ["big", "bigger", "more big"], "a": 1, "h": "Short adjective. Double the last letter?", "p": "B"}, {"t": "tx", "q": "Hanoi is ___ than my town. (large)", "a": ["larger"], "h": "Short adjective ending in -e: add only -r.", "p": "B"}, {"t": "mc", "q": "This street is ___ than that one.", "o": ["noisier", "more noisy", "noisyer"], "a": 0, "h": "Two syllables ending in -y: change y to i.", "p": "B"}, {"t": "mc", "q": "The new mall is ___ than the old market.", "o": ["modern", "moderner", "more modern"], "a": 2, "h": "Is it a short or a long adjective?", "p": "B"}, {"t": "tx", "q": "A bike is ___ than a car. (cheap)", "a": ["cheaper"], "h": "One syllable: add -er.", "p": "B"}, {"t": "mc", "q": "Our neighbourhood is quieter ___ the city centre.", "o": ["then", "than", "that"], "a": 1, "h": "We compare two things with this word.", "p": "B"}, {"t": "tx", "q": "The weather today is ___ than yesterday. (good)", "a": ["better"], "h": "This adjective is irregular.", "p": "B"}, {"t": "mc", "q": "Which sentence is correct?", "o": ["This book is more cheap than that one.", "This book is cheaper than that one.", "This book is more cheaper than that one."], "a": 1, "h": "Do not use more and -er together.", "p": "B"}, {"t": "tx", "q": "Traffic in the city is ___ than in the village. (bad)", "a": ["worse"], "h": "This adjective is irregular too.", "p": "B"}, {"t": "mc", "q": "Which sentence is correct?", "o": ["Your room bigger is than mine.", "Your room is more big than mine.", "Your room is bigger than mine."], "a": 2, "h": "Check the word order and the adjective form.", "p": "B"}];
+
+var AC=null,MUTE=false;
+function ac(){try{if(!AC)AC=new (window.AudioContext||window.webkitAudioContext)();if(AC.state=="suspended")AC.resume()}catch(e){}return AC}
+function tone(f,t0,d,type,v){if(MUTE)return;var a=ac();if(!a)return;var o=a.createOscillator(),g=a.createGain();o.type=type||"sine";o.frequency.value=f;var n=a.currentTime+t0;g.gain.setValueAtTime(0.0001,n);g.gain.exponentialRampToValueAtTime(v||0.25,n+0.02);g.gain.exponentialRampToValueAtTime(0.0001,n+d);o.connect(g);g.connect(a.destination);o.start(n);o.stop(n+d+0.05)}
+function sCorrect(){tone(784,0,0.15,"triangle");tone(1175,0.12,0.3,"triangle")}
+function sWrong(){tone(220,0,0.18,"sawtooth",0.18);tone(165,0.15,0.3,"sawtooth",0.18)}
+function sTick(){tone(600,0,0.06,"square",0.08)}
+function sFanfare(good){if(good){[523,659,784,1047,784,1047,1319].forEach(function(f,i){tone(f,i*0.13,0.25,"triangle",0.28)})}else{[392,349,330].forEach(function(f,i){tone(f,i*0.2,0.35,"sine",0.22)})}}
+document.addEventListener('DOMContentLoaded',function(){$('mute').onclick=function(){MUTE=!MUTE;this.textContent=MUTE?'🔇':'🔊';if(!MUTE)sTick()}});
+var started=0,$=function(i){return document.getElementById(i)};
+function norm(s){return String(s||"").toLowerCase().replace(/\s+/g," ").trim()}
+function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+function prep(){Q.forEach(function(x){if(x.t=="mc"){var c=x.o[x.a];x.o=shuffle(x.o.slice());x.a=x.o.indexOf(c)}})}
+var PT={A:'Part A · Choose the correct comparative form',B:'Part B · Comparative sentences'};
+function build(){var h="",lp="";Q.forEach(function(x,i){if(x.p!=lp){lp=x.p;h+='<h2>'+PT[lp]+'</h2>'}h+='<div class="card" id="c'+i+'"><div class="q">'+(i+1)+'. '+x.q+'</div>';
+ if(x.t=="mc"){x.o.forEach(function(o,j){h+='<label class="opt"><input type="radio" name="q'+i+'" value="'+j+'">'+String.fromCharCode(65+j)+'. '+o+'</label>'});}
+ else{h+='<input type="text" id="t'+i+'" autocomplete="off" autocapitalize="none" spellcheck="false">';}
+ h+='<div><button class="alt" onclick="hint('+i+')" type="button">💡 Hint</button></div><div class="hint hide" id="h'+i+'">'+x.h+'</div><div id="f'+i+'"></div></div>';});
+ $("qs").innerHTML=h;
+ document.querySelectorAll(".opt input").forEach(function(r){r.onchange=function(){sTick();var n=r.name;document.querySelectorAll('input[name="'+n+'"]').forEach(function(z){z.parentNode.classList.toggle("sel",z.checked)});prog()}});
+ document.querySelectorAll('input[type=text][id^=t]').forEach(function(t){t.oninput=prog});}
+function hint(i){$("h"+i).classList.toggle("hide")}
+function done(i){var x=Q[i];if(x.t=="mc")return !!document.querySelector('input[name="q'+i+'"]:checked');return norm($("t"+i).value)!=""}
+function prog(){var n=0;Q.forEach(function(_,i){if(done(i))n++});$("bar").firstElementChild.style.width=(n*100/Q.length)+"%"}
+$("go").onclick=function(){ac();if(!norm($("nm").value)||!norm($("cl").value)){alert("Please write your name and class.");return}
+ $("start").classList.add("hide");$("quiz").classList.remove("hide");prep();build();started=Date.now();window.scrollTo(0,0);
+ if(!SCRIPT_URL)$("warn").textContent="Your score is not being saved yet (teacher: connect the Sheet).";};
+$("submit").onclick=function(){var left=[];Q.forEach(function(_,i){if(!done(i))left.push(i+1)});
+ if(left.length&&!confirm("You have not answered: "+left.join(", ")+". Submit anyway?"))return;
+ var score=0,sa=0,sb=0,det=[],res=[];Q.forEach(function(x,i){var ok,ans;
+  if(x.t=="mc"){var c=document.querySelector('input[name="q'+i+'"]:checked');ans=c?x.o[+c.value]:"";ok=c&&+c.value==x.a;}
+  else{ans=$("t"+i).value;ok=x.a.indexOf(norm(ans))>=0;}
+  if(ok){score++;if(x.p=="A")sa++;else sb++}det.push((i+1)+":"+(ok?"OK":"X")+" ("+ans+")");
+  var corr=x.t=="mc"?x.o[x.a]:x.a[0];
+  res.push([i,!!ok,corr]);});
+ $("submit").disabled=true;
+ var sec=Math.round((Date.now()-started)/1000);
+ var msg=score>=18?"Excellent!":score>=14?"Well done!":score>=10?"Good try! Read the notes again.":"Keep trying! Ask your teacher.";
+ $("result").classList.remove("hide");
+ $("result").innerHTML='<h2>'+msg+'</h2><p class="q">Score: '+score+' / '+Q.length+'</p><p>Part A: '+sa+' / 10 · Part B: '+sb+' / 10</p><p class="small">Green = correct, red = see the answer under the question.</p><button onclick="location.reload()">Try again ↺</button>';
+ $("result").classList.add("hide");
+ res.forEach(function(r,k){setTimeout(function(){var i=r[0];$("f"+i).innerHTML=r[1]?'<p class="ok">✔ Correct</p>':'<p class="no">✘ Answer: '+r[2]+'</p>';document.getElementById("c"+i).style.borderColor=r[1]?"#1b7f5b":"#c62828";if(r[1])sCorrect();else sWrong();if(k==0||k%5==0)document.getElementById("c"+i).scrollIntoView({behavior:"smooth",block:"center"})},k*650)});
+ setTimeout(function(){$("result").classList.remove("hide");sFanfare(score>=14);$("result").scrollIntoView({behavior:"smooth"})},res.length*650+400);
+ var data={name:$("nm").value.trim(),cls:$("cl").value.trim(),lesson:LESSON,score:score,total:Q.length,seconds:sec,detail:"A "+sa+"/10 | B "+sb+"/10 || "+det.join(" | ")};
+ if(SCRIPT_URL){fetch(SCRIPT_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain"},body:JSON.stringify(data)}).then(function(){$("warn").textContent="Score saved ✔"}).catch(function(){$("warn").textContent="Could not save. Tell your teacher your score."});}
+ else{$("warn").textContent="Score not saved (not connected yet). Tell your teacher: "+score+"/"+Q.length;}
+};
+</script></body></html>

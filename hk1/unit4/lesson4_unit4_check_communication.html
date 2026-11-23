@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Unit 4 · Communication · Check-up</title><style>
+:root{--n:#0f1d4a;--g:#f6c453;--o:#e8892b;--cr:#fff3d6;--t:#0f1d4a}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,Arial,sans-serif;background:radial-gradient(circle at 20% 0,#24409a 0,#0f1d4a 55%,#0a1236 100%) fixed;color:var(--t);font-size:22px}
+header{background:var(--n);color:var(--g);padding:16px 20px;text-align:center;border-bottom:4px solid var(--o)}header h1{margin:0;font-size:30px}header p{margin:6px 0 0;font-size:20px;color:#ffe9b0}
+main{max-width:860px;margin:0 auto;padding:18px}
+.card{background:var(--cr);border:4px solid var(--g);border-radius:18px;padding:18px;margin:16px 0}
+label{display:block;font-weight:700;margin:10px 0 4px}
+input[type=text]{width:100%;font-size:22px;padding:10px;border:3px solid var(--o);border-radius:10px;background:#fff;color:var(--n)}
+button{font-size:22px;font-weight:800;padding:12px 22px;border:0;border-radius:12px;background:var(--g);color:var(--n);cursor:pointer;box-shadow:0 3px 0 var(--o)}
+button.alt{background:#ffe3a3}button:disabled{opacity:.5}
+.q{font-size:26px;font-weight:800}.opt{display:block;margin:8px 0;padding:12px;border:3px solid #e8cf9b;border-radius:12px;cursor:pointer;background:#fffaf0}
+.opt input{margin-right:10px;transform:scale(1.4)}.opt.sel{background:#ffe3a3;border-color:var(--o)}
+.hint{margin-top:8px;font-size:19px;color:#2a3d8f}.ok{color:#2e6b3a;font-weight:800}.no{color:#b3261e;font-weight:800}
+#bar{height:14px;background:#2a3d8f;border-radius:8px;overflow:hidden}#bar i{display:block;height:100%;background:var(--g);width:0}
+.credit{text-align:center;font-weight:800;font-size:22px;color:#39ff14;background:#0a1236;border:2px solid var(--o);padding:12px;border-radius:12px;margin:26px 0 10px}
+.small{font-size:16px;color:#ffe9b0}.hide{display:none}
+h2{margin:26px 0 0;color:var(--g);font-size:26px}
+.pass{background:#fffaf0;border:3px dashed var(--o);border-radius:14px;padding:14px;font-size:23px;line-height:1.5;margin:10px 0}
+#mute{float:right;font-size:22px;padding:6px 12px;background:#fff3d6;color:var(--n)}
+</style></head><body>
+<header><button id="mute" type="button">🔊</button><h1>Unit 4 · Communication · Check-up</h1><p>Directions, signs and notices</p></header>
+<main>
+<div id="start" class="card">
+ <label for="nm">Your name</label><input id="nm" type="text" value="Bui Minh Khang">
+ <label for="cl">Your class</label><input id="cl" type="text" value="6A3">
+ <p>15 short questions about useful phrases for the street.</p>
+ <button id="go">Start ▶</button>
+</div>
+<div id="quiz" class="hide"><div id="bar"><i></i></div><div id="qs"></div><button id="submit" class="alt">Submit ✔</button></div>
+<div id="result" class="card hide"></div>
+<div class="credit">Created by Nguyen Thi Thu Thuy</div>
+<p id="warn" class="small"></p>
+</main><script>
+var SCRIPT_URL="https://script.google.com/macros/s/AKfycbyMKQr7sLorZwWgsIkPjJmDjtzh3rmju9w5tR-wQM5OpObpdwkSIYgcFWM0lsIxpTcM/exec";  /* paste the Apps Script web app URL here */
+var LESSON="Unit4-L4-Check";
+var PT={"A": "Part A · Asking and giving directions", "B": "Part B · Signs and notices", "C": "Part C · Linking and giving steps"};
+var PRE={};
+var Q=[{"t": "mc", "p": "A", "q": "Choose the best way to ask for directions.", "o": ["Excuse me. Could you tell me the way to the cinema, please?", "You tell cinema way.", "Where cinema is you?", "Cinema, tell me."], "a": 0, "h": "Be polite: Excuse me + Could you ...?"}, {"t": "mc", "p": "A", "q": "'Where's the nearest post office, please?' - '______'", "o": ["Go out of the station. Take the first turning on the right.", "Yes, it is a post office.", "I am near.", "It is nice."], "a": 0, "h": "A reply must give directions."}, {"t": "mc", "p": "A", "q": "'Could you tell me the way to the bank?' - 'Go along this street. It's ______ your left.'", "o": ["on", "in", "at", "to"], "a": 0, "h": "on your left / on your right."}, {"t": "mc", "p": "A", "q": "The bank is ______ the school. (beside it)", "o": ["next to", "opposite", "behind to", "on to"], "a": 0, "h": "Two buildings side by side."}, {"t": "mc", "p": "A", "q": "The post office is ______ the park. (face to face across the road)", "o": ["opposite", "next", "between", "into"], "a": 0, "h": "They are on different sides of the road."}, {"t": "mc", "p": "A", "q": "Which is correct?", "o": ["Take the first turning on the right.", "Take the first turning in the right.", "Take first turning of right.", "Taking the first turning to right."], "a": 0, "h": "Take the first turning on the ..."}, {"t": "mc", "p": "B", "q": "Which sign means you must NOT park here?", "o": ["No parking", "Way out", "Quiet please", "Wet floor"], "a": 0, "h": "Look for the word No."}, {"t": "mc", "p": "B", "q": "A sign says 'Quiet please'. What should you do?", "o": ["Do not make noise", "Park your car", "Turn right", "Take a photo"], "a": 0, "h": "A library often has this sign."}, {"t": "mc", "p": "B", "q": "'Way out' on a sign shows you where to ______.", "o": ["leave the building", "enter the room", "buy a ticket", "wait"], "a": 0, "h": "Out = go outside."}, {"t": "mc", "p": "B", "q": "'Wet floor' is a warning. It means the floor is ______.", "o": ["slippery", "hot", "new", "crowded"], "a": 0, "h": "Be careful when you walk."}, {"t": "mc", "p": "B", "q": "'No entry' means ______.", "o": ["you cannot go in", "you can go in", "go straight", "turn left"], "a": 0, "h": "Entry means going in."}, {"t": "mc", "p": "C", "q": "Put in order: 1 Go straight. 2 Turn left. 3 It's on your right. Which is the best linking? 'First, go straight. ______, turn left.'", "o": ["Then", "Finally", "Because", "But"], "a": 0, "h": "A word for the next step."}, {"t": "mc", "p": "C", "q": "'______, you will see the museum on your right.' (the last step)", "o": ["Finally", "First", "Then", "Next to"], "a": 0, "h": "Last step of the directions."}, {"t": "tx", "p": "C", "q": "Complete: 'Turn ______.' (the opposite of left)", "a": ["right"], "h": "Not left."}, {"t": "tx", "p": "C", "q": "Complete: 'Go ______ ahead.' (do not turn)", "a": ["straight"], "h": "Directly forward."}];
+var AC=null,MUTE=false;
+function ac(){try{if(!AC)AC=new (window.AudioContext||window.webkitAudioContext)();if(AC.state=="suspended")AC.resume()}catch(e){}return AC}
+function tone(f,t0,d,type,v){if(MUTE)return;var a=ac();if(!a)return;var o=a.createOscillator(),g=a.createGain();o.type=type||"sine";o.frequency.value=f;var n=a.currentTime+t0;g.gain.setValueAtTime(0.0001,n);g.gain.exponentialRampToValueAtTime(v||0.25,n+0.02);g.gain.exponentialRampToValueAtTime(0.0001,n+d);o.connect(g);g.connect(a.destination);o.start(n);o.stop(n+d+0.05)}
+function sCorrect(){tone(784,0,0.15,"triangle");tone(1175,0.12,0.3,"triangle")}
+function sWrong(){tone(220,0,0.18,"sawtooth",0.18);tone(165,0.15,0.3,"sawtooth",0.18)}
+function sTick(){tone(600,0,0.06,"square",0.08)}
+function sFanfare(good){if(good){[523,659,784,1047,784,1047,1319].forEach(function(f,i){tone(f,i*0.13,0.25,"triangle",0.28)})}else{[392,349,330].forEach(function(f,i){tone(f,i*0.2,0.35,"sine",0.22)})}}
+var started=0,$=function(i){return document.getElementById(i)};
+document.addEventListener("DOMContentLoaded",function(){$("mute").onclick=function(){MUTE=!MUTE;this.textContent=MUTE?"🔇":"🔊";if(!MUTE)sTick()}});
+function norm(s){return String(s||"").toLowerCase().replace(/[.,!?]/g,"").replace(/\s+/g," ").trim()}
+function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+function prep(){Q.forEach(function(x){if(x.t=="mc"&&!x.fix){var c=x.o[x.a];x.o=shuffle(x.o.slice());x.a=x.o.indexOf(c)}})}
+function build(){var h="",lp="";Q.forEach(function(x,i){if(x.p!=lp){lp=x.p;h+='<h2>'+PT[lp]+'</h2>';if(PRE[lp])h+='<div class="pass">'+PRE[lp]+'</div>'}
+ h+='<div class="card" id="c'+i+'"><div class="q">'+(i+1)+'. '+x.q+'</div>';
+ if(x.t=="mc"){x.o.forEach(function(o,j){h+='<label class="opt"><input type="radio" name="q'+i+'" value="'+j+'">'+String.fromCharCode(65+j)+'. '+o+'</label>'});}
+ else{h+='<input type="text" id="t'+i+'" autocomplete="off" autocapitalize="none" spellcheck="false">';}
+ h+='<div><button class="alt" onclick="hint('+i+')" type="button">💡 Hint</button></div><div class="hint hide" id="h'+i+'">'+x.h+'</div><div id="f'+i+'"></div></div>';});
+ $("qs").innerHTML=h;
+ document.querySelectorAll(".opt input").forEach(function(r){r.onchange=function(){sTick();var n=r.name;document.querySelectorAll('input[name="'+n+'"]').forEach(function(z){z.parentNode.classList.toggle("sel",z.checked)});prog()}});
+ document.querySelectorAll('input[type=text][id^=t]').forEach(function(t){t.oninput=prog});}
+function hint(i){$("h"+i).classList.toggle("hide")}
+function done(i){var x=Q[i];if(x.t=="mc")return !!document.querySelector('input[name="q'+i+'"]:checked');return norm($("t"+i).value)!=""}
+function prog(){var n=0;Q.forEach(function(_,i){if(done(i))n++});$("bar").firstElementChild.style.width=(n*100/Q.length)+"%"}
+$("go").onclick=function(){ac();if(!norm($("nm").value)||!norm($("cl").value)){alert("Please write your name and class.");return}
+ $("start").classList.add("hide");$("quiz").classList.remove("hide");prep();build();started=Date.now();window.scrollTo(0,0);
+ if(!SCRIPT_URL)$("warn").textContent="Your score is not being saved yet (teacher: connect the Sheet).";};
+$("submit").onclick=function(){var left=[];Q.forEach(function(_,i){if(!done(i))left.push(i+1)});
+ if(left.length&&!confirm("You have not answered: "+left.join(", ")+". Submit anyway?"))return;
+ var score=0,ps={},pn={},det=[],res=[];
+ Q.forEach(function(x,i){var ok,ans;pn[x.p]=(pn[x.p]||0)+1;if(!(x.p in ps))ps[x.p]=0;
+  if(x.t=="mc"){var c=document.querySelector('input[name="q'+i+'"]:checked');ans=c?x.o[+c.value]:"";ok=c&&+c.value==x.a;}
+  else{ans=$("t"+i).value;ok=x.a.indexOf(norm(ans))>=0;}
+  if(ok){score++;ps[x.p]++}det.push((i+1)+":"+(ok?"OK":"X")+" ("+ans+")");
+  res.push([i,!!ok,x.t=="mc"?x.o[x.a]:x.a[0]]);});
+ $("submit").disabled=true;
+ var sec=Math.round((Date.now()-started)/1000),T=Q.length;
+ var msg=score>=T*0.9?"Excellent!":score>=T*0.7?"Well done!":score>=T*0.5?"Good try! Read the notes again.":"Keep trying! Ask your teacher.";
+ var pl=Object.keys(ps).map(function(k){return "Part "+k+": "+ps[k]+" / "+pn[k]}).join(" · ");
+ $("result").classList.add("hide");
+ res.forEach(function(r,k){setTimeout(function(){var i=r[0];$("f"+i).innerHTML=r[1]?'<p class="ok">✔ Correct</p>':'<p class="no">✘ Answer: '+r[2]+'</p>';document.getElementById("c"+i).style.borderColor=r[1]?"#2e6b3a":"#b3261e";if(r[1])sCorrect();else sWrong();if(k==0||k%5==0)document.getElementById("c"+i).scrollIntoView({behavior:"smooth",block:"center"})},k*650)});
+ setTimeout(function(){$("result").innerHTML='<h2>'+msg+'</h2><p class="q">Score: '+score+' / '+T+'</p><p>'+pl+'</p><p class="small">Green = correct, red = see the answer under the question.</p><button onclick="location.reload()">Try again ↺</button>';$("result").classList.remove("hide");sFanfare(score>=T*0.7);$("result").scrollIntoView({behavior:"smooth"})},res.length*650+400);
+ var data={name:$("nm").value.trim(),cls:$("cl").value.trim(),lesson:LESSON,score:score,total:T,seconds:sec,detail:pl.replace(/ · /g," | ")+" || "+det.join(" | ")};
+ if(SCRIPT_URL){fetch(SCRIPT_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain"},body:JSON.stringify(data)}).then(function(){$("warn").textContent="Score saved ✔"}).catch(function(){$("warn").textContent="Could not save. Tell your teacher your score."});}
+ else{$("warn").textContent="Score not saved (not connected yet). Tell your teacher: "+score+"/"+T;}
+};
+</script></body></html>

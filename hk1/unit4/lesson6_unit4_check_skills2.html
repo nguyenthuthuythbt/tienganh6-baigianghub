@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Unit 4 · Skills 2 · Check-up</title><style>
+:root{--n:#0f1d4a;--g:#f6c453;--o:#e8892b;--cr:#fff3d6;--t:#0f1d4a}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,Arial,sans-serif;background:radial-gradient(circle at 20% 0,#24409a 0,#0f1d4a 55%,#0a1236 100%) fixed;color:var(--t);font-size:22px}
+header{background:var(--n);color:var(--g);padding:16px 20px;text-align:center;border-bottom:4px solid var(--o)}header h1{margin:0;font-size:30px}header p{margin:6px 0 0;font-size:20px;color:#ffe9b0}
+main{max-width:860px;margin:0 auto;padding:18px}
+.card{background:var(--cr);border:4px solid var(--g);border-radius:18px;padding:18px;margin:16px 0}
+label{display:block;font-weight:700;margin:10px 0 4px}
+input[type=text]{width:100%;font-size:22px;padding:10px;border:3px solid var(--o);border-radius:10px;background:#fff;color:var(--n)}
+button{font-size:22px;font-weight:800;padding:12px 22px;border:0;border-radius:12px;background:var(--g);color:var(--n);cursor:pointer;box-shadow:0 3px 0 var(--o)}
+button.alt{background:#ffe3a3}button:disabled{opacity:.5}
+.q{font-size:26px;font-weight:800}.opt{display:block;margin:8px 0;padding:12px;border:3px solid #e8cf9b;border-radius:12px;cursor:pointer;background:#fffaf0}
+.opt input{margin-right:10px;transform:scale(1.4)}.opt.sel{background:#ffe3a3;border-color:var(--o)}
+.hint{margin-top:8px;font-size:19px;color:#2a3d8f}.ok{color:#2e6b3a;font-weight:800}.no{color:#b3261e;font-weight:800}
+#bar{height:14px;background:#2a3d8f;border-radius:8px;overflow:hidden}#bar i{display:block;height:100%;background:var(--g);width:0}
+.credit{text-align:center;font-weight:800;font-size:22px;color:#39ff14;background:#0a1236;border:2px solid var(--o);padding:12px;border-radius:12px;margin:26px 0 10px}
+.small{font-size:16px;color:#ffe9b0}.hide{display:none}
+h2{margin:26px 0 0;color:var(--g);font-size:26px}
+.pass{background:#fffaf0;border:3px dashed var(--o);border-radius:14px;padding:14px;font-size:23px;line-height:1.5;margin:10px 0}
+#mute{float:right;font-size:22px;padding:6px 12px;background:#fff3d6;color:var(--n)}
+</style></head><body>
+<header><button id="mute" type="button">🔊</button><h1>Unit 4 · Skills 2 · Check-up</h1><p>Writing: rewrite and reorder sentences</p></header>
+<main>
+<div id="start" class="card">
+ <label for="nm">Your name</label><input id="nm" type="text" value="Bui Minh Khang">
+ <label for="cl">Your class</label><input id="cl" type="text" value="6A3">
+ <p>15 questions about writing sentences. Type the full sentence in the boxes. No need for capital letters.</p>
+ <button id="go">Start ▶</button>
+</div>
+<div id="quiz" class="hide"><div id="bar"><i></i></div><div id="qs"></div><button id="submit" class="alt">Submit ✔</button></div>
+<div id="result" class="card hide"></div>
+<div class="credit">Created by Nguyen Thi Thu Thuy</div>
+<p id="warn" class="small"></p>
+</main><script>
+var SCRIPT_URL="https://script.google.com/macros/s/AKfycbyMKQr7sLorZwWgsIkPjJmDjtzh3rmju9w5tR-wQM5OpObpdwkSIYgcFWM0lsIxpTcM/exec";  /* paste the Apps Script web app URL here */
+var LESSON="Unit4-L6-Check";
+var PT={"A": "Part A · Rewrite and reorder words", "B": "Part B · Order and write a short text"};
+var PRE={};
+var Q=[{"t": "mc", "p": "A", "q": "Choose the correct sentence.", "o": ["My neighbourhood is noisy and crowded.", "Neighbourhood my is noisy and crowded.", "My is neighbourhood noisy crowded and.", "Noisy my neighbourhood and is crowded."], "a": 0, "h": "Subject + verb + adjectives."}, {"t": "mc", "p": "A", "q": "Choose the correct sentence.", "o": ["There are many shops in my neighbourhood.", "There is many shops in my neighbourhood.", "Many shops there are in my neighbourhood.", "In there many shops are my."], "a": 0, "h": "Shops is plural."}, {"t": "mc", "p": "A", "q": "Rewrite: 'The market is bigger than the shop.' = 'The shop is ______ than the market.'", "o": ["smaller", "more small", "bigger", "smallest"], "a": 0, "h": "The opposite adjective."}, {"t": "mc", "p": "A", "q": "Rewrite: 'My house is not as modern as yours.' = 'Your house is ______ than mine.'", "o": ["more modern", "modern", "moderner", "most modern"], "a": 0, "h": "Long adjective."}, {"t": "mc", "p": "A", "q": "Which sentence shows a dislike?", "o": ["However, I dislike the dirty air.", "I love the park.", "It has a market.", "People are friendly."], "a": 0, "h": "Look for dislike."}, {"t": "mc", "p": "A", "q": "Choose the best linking word: 'I like my neighbourhood. ______, it is noisy.'", "o": ["However", "So", "And", "Because"], "a": 0, "h": "Shows a different idea."}, {"t": "tx", "p": "A", "q": "Reorder: noisy / is / street / The / very → ", "a": ["the street is very noisy"], "h": "Start with The."}, {"t": "tx", "p": "A", "q": "Reorder: parks / has / beautiful / It / two → ", "a": ["it has two beautiful parks"], "h": "Start with It."}, {"t": "tx", "p": "A", "q": "Reorder: friendly / are / people / The / helpful / and → ", "a": ["the people are friendly and helpful", "the people are helpful and friendly"], "h": "Start with The."}, {"t": "mc", "p": "B", "q": "Put in order. 1 I live in the suburbs of Da Nang. 2 It has a big market. 3 However, I dislike the crowded streets. Which order is best for a short text?", "o": ["1 - 2 - 3", "3 - 1 - 2", "2 - 3 - 1", "3 - 2 - 1"], "a": 0, "h": "Say where, then likes, then dislikes."}, {"t": "mc", "p": "B", "q": "Where does the sentence 'My name is Vy.' go in a text?", "o": ["First", "Last", "After 'However'", "In the middle"], "a": 0, "h": "Introduce yourself first."}, {"t": "mc", "p": "B", "q": "A good short text about your neighbourhood has ______.", "o": ["where it is, likes, dislikes", "only dislikes", "only the name", "only a picture"], "a": 0, "h": "Remember the checklist."}, {"t": "mc", "p": "B", "q": "Which sentence needs a capital letter and a full stop? ", "o": ["it is a quiet place", "It is a quiet place.", "it is a quiet place.", "It is a quiet place"], "a": 1, "h": "Capital at the start, full stop at the end.", "fix": true}, {"t": "mc", "p": "B", "q": "'wide' goes with ______.", "o": ["streets", "air", "food", "homework"], "a": 0, "h": "Wide streets."}, {"t": "tx", "p": "B", "q": "Complete: 'There are two things I dislike ______ it.' (about)", "a": ["about"], "h": "A short word: about / of."}];
+var AC=null,MUTE=false;
+function ac(){try{if(!AC)AC=new (window.AudioContext||window.webkitAudioContext)();if(AC.state=="suspended")AC.resume()}catch(e){}return AC}
+function tone(f,t0,d,type,v){if(MUTE)return;var a=ac();if(!a)return;var o=a.createOscillator(),g=a.createGain();o.type=type||"sine";o.frequency.value=f;var n=a.currentTime+t0;g.gain.setValueAtTime(0.0001,n);g.gain.exponentialRampToValueAtTime(v||0.25,n+0.02);g.gain.exponentialRampToValueAtTime(0.0001,n+d);o.connect(g);g.connect(a.destination);o.start(n);o.stop(n+d+0.05)}
+function sCorrect(){tone(784,0,0.15,"triangle");tone(1175,0.12,0.3,"triangle")}
+function sWrong(){tone(220,0,0.18,"sawtooth",0.18);tone(165,0.15,0.3,"sawtooth",0.18)}
+function sTick(){tone(600,0,0.06,"square",0.08)}
+function sFanfare(good){if(good){[523,659,784,1047,784,1047,1319].forEach(function(f,i){tone(f,i*0.13,0.25,"triangle",0.28)})}else{[392,349,330].forEach(function(f,i){tone(f,i*0.2,0.35,"sine",0.22)})}}
+var started=0,$=function(i){return document.getElementById(i)};
+document.addEventListener("DOMContentLoaded",function(){$("mute").onclick=function(){MUTE=!MUTE;this.textContent=MUTE?"🔇":"🔊";if(!MUTE)sTick()}});
+function norm(s){return String(s||"").toLowerCase().replace(/[.,!?]/g,"").replace(/\s+/g," ").trim()}
+function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+function prep(){Q.forEach(function(x){if(x.t=="mc"&&!x.fix){var c=x.o[x.a];x.o=shuffle(x.o.slice());x.a=x.o.indexOf(c)}})}
+function build(){var h="",lp="";Q.forEach(function(x,i){if(x.p!=lp){lp=x.p;h+='<h2>'+PT[lp]+'</h2>';if(PRE[lp])h+='<div class="pass">'+PRE[lp]+'</div>'}
+ h+='<div class="card" id="c'+i+'"><div class="q">'+(i+1)+'. '+x.q+'</div>';
+ if(x.t=="mc"){x.o.forEach(function(o,j){h+='<label class="opt"><input type="radio" name="q'+i+'" value="'+j+'">'+String.fromCharCode(65+j)+'. '+o+'</label>'});}
+ else{h+='<input type="text" id="t'+i+'" autocomplete="off" autocapitalize="none" spellcheck="false">';}
+ h+='<div><button class="alt" onclick="hint('+i+')" type="button">💡 Hint</button></div><div class="hint hide" id="h'+i+'">'+x.h+'</div><div id="f'+i+'"></div></div>';});
+ $("qs").innerHTML=h;
+ document.querySelectorAll(".opt input").forEach(function(r){r.onchange=function(){sTick();var n=r.name;document.querySelectorAll('input[name="'+n+'"]').forEach(function(z){z.parentNode.classList.toggle("sel",z.checked)});prog()}});
+ document.querySelectorAll('input[type=text][id^=t]').forEach(function(t){t.oninput=prog});}
+function hint(i){$("h"+i).classList.toggle("hide")}
+function done(i){var x=Q[i];if(x.t=="mc")return !!document.querySelector('input[name="q'+i+'"]:checked');return norm($("t"+i).value)!=""}
+function prog(){var n=0;Q.forEach(function(_,i){if(done(i))n++});$("bar").firstElementChild.style.width=(n*100/Q.length)+"%"}
+$("go").onclick=function(){ac();if(!norm($("nm").value)||!norm($("cl").value)){alert("Please write your name and class.");return}
+ $("start").classList.add("hide");$("quiz").classList.remove("hide");prep();build();started=Date.now();window.scrollTo(0,0);
+ if(!SCRIPT_URL)$("warn").textContent="Your score is not being saved yet (teacher: connect the Sheet).";};
+$("submit").onclick=function(){var left=[];Q.forEach(function(_,i){if(!done(i))left.push(i+1)});
+ if(left.length&&!confirm("You have not answered: "+left.join(", ")+". Submit anyway?"))return;
+ var score=0,ps={},pn={},det=[],res=[];
+ Q.forEach(function(x,i){var ok,ans;pn[x.p]=(pn[x.p]||0)+1;if(!(x.p in ps))ps[x.p]=0;
+  if(x.t=="mc"){var c=document.querySelector('input[name="q'+i+'"]:checked');ans=c?x.o[+c.value]:"";ok=c&&+c.value==x.a;}
+  else{ans=$("t"+i).value;ok=x.a.indexOf(norm(ans))>=0;}
+  if(ok){score++;ps[x.p]++}det.push((i+1)+":"+(ok?"OK":"X")+" ("+ans+")");
+  res.push([i,!!ok,x.t=="mc"?x.o[x.a]:x.a[0]]);});
+ $("submit").disabled=true;
+ var sec=Math.round((Date.now()-started)/1000),T=Q.length;
+ var msg=score>=T*0.9?"Excellent!":score>=T*0.7?"Well done!":score>=T*0.5?"Good try! Read the notes again.":"Keep trying! Ask your teacher.";
+ var pl=Object.keys(ps).map(function(k){return "Part "+k+": "+ps[k]+" / "+pn[k]}).join(" · ");
+ $("result").classList.add("hide");
+ res.forEach(function(r,k){setTimeout(function(){var i=r[0];$("f"+i).innerHTML=r[1]?'<p class="ok">✔ Correct</p>':'<p class="no">✘ Answer: '+r[2]+'</p>';document.getElementById("c"+i).style.borderColor=r[1]?"#2e6b3a":"#b3261e";if(r[1])sCorrect();else sWrong();if(k==0||k%5==0)document.getElementById("c"+i).scrollIntoView({behavior:"smooth",block:"center"})},k*650)});
+ setTimeout(function(){$("result").innerHTML='<h2>'+msg+'</h2><p class="q">Score: '+score+' / '+T+'</p><p>'+pl+'</p><p class="small">Green = correct, red = see the answer under the question.</p><button onclick="location.reload()">Try again ↺</button>';$("result").classList.remove("hide");sFanfare(score>=T*0.7);$("result").scrollIntoView({behavior:"smooth"})},res.length*650+400);
+ var data={name:$("nm").value.trim(),cls:$("cl").value.trim(),lesson:LESSON,score:score,total:T,seconds:sec,detail:pl.replace(/ · /g," | ")+" || "+det.join(" | ")};
+ if(SCRIPT_URL){fetch(SCRIPT_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain"},body:JSON.stringify(data)}).then(function(){$("warn").textContent="Score saved ✔"}).catch(function(){$("warn").textContent="Could not save. Tell your teacher your score."});}
+ else{$("warn").textContent="Score not saved (not connected yet). Tell your teacher: "+score+"/"+T;}
+};
+</script></body></html>
