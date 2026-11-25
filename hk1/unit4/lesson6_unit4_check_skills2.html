@@ -23,8 +23,8 @@ h2{margin:26px 0 0;color:var(--g);font-size:26px}
 <header><button id="mute" type="button">🔊</button><h1>Unit 4 · Skills 2 · Check-up</h1><p>Writing: rewrite and reorder sentences</p></header>
 <main>
 <div id="start" class="card">
- <label for="nm">Your name</label><input id="nm" type="text" value="Bui Minh Khang">
- <label for="cl">Your class</label><input id="cl" type="text" value="6A3">
+ <label for="nm">Your name</label><input id="nm" type="text" placeholder="Bùi Minh Khang" autocomplete="off" required>
+ <label for="cl">Your class</label><input id="cl" type="text" placeholder="6A3" autocomplete="off" required>
  <p>15 questions about writing sentences. Type the full sentence in the boxes. No need for capital letters.</p>
  <button id="go">Start ▶</button>
 </div>
@@ -61,7 +61,7 @@ function build(){var h="",lp="";Q.forEach(function(x,i){if(x.p!=lp){lp=x.p;h+='<
 function hint(i){$("h"+i).classList.toggle("hide")}
 function done(i){var x=Q[i];if(x.t=="mc")return !!document.querySelector('input[name="q'+i+'"]:checked');return norm($("t"+i).value)!=""}
 function prog(){var n=0;Q.forEach(function(_,i){if(done(i))n++});$("bar").firstElementChild.style.width=(n*100/Q.length)+"%"}
-$("go").onclick=function(){ac();if(!norm($("nm").value)||!norm($("cl").value)){alert("Please write your name and class.");return}
+$("go").onclick=function(){ac();if (!$("nm").value.trim() || !$("cl").value.trim()) { alert("Em hãy nhập họ và tên và lớp trước khi bắt đầu."); (!$("nm").value.trim() ? $("nm") : $("cl")).focus(); return; }
  $("start").classList.add("hide");$("quiz").classList.remove("hide");prep();build();started=Date.now();window.scrollTo(0,0);
  if(!SCRIPT_URL)$("warn").textContent="Your score is not being saved yet (teacher: connect the Sheet).";};
 $("submit").onclick=function(){var left=[];Q.forEach(function(_,i){if(!done(i))left.push(i+1)});
